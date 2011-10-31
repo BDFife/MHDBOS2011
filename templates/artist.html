@@ -1,0 +1,19 @@
+<html>
+<head>
+  <title> {{artist_info["name"]}}</title>
+  <link rel="stylesheet" href="/static/hack.css" type="text/css">
+</head>
+<body>
+
+<h1> Artist Page </h1>
+
+<p> Here's what we know about the artist you selected: </p>
+
+{% for key in artist_info %}
+
+<p> {{key}} {{artist_info[key]}} </p>
+
+{% endfor %}
+
+</body>
+</html>
