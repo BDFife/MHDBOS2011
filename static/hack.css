@@ -1,5 +1,15 @@
 body {
-
-	background-color: grey;	
-
+  margin: 0;
+  padding: 0;
+  border: 0;
+  height: 100%;
+  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+  color: #fff;
+  background: #3d3f44;
+  background: -moz-linear-gradient(top, #3d3f44 6%, #d8dce5 100%);
+  background: -webkit-gradient(linear, left top, left bottom, from(#3d3f44), to(#d8dce5));
+  background-attachment: fixed;
+  background-repeat: no-repeat;
+  -webkit-font-smoothing: antialiased;
 }
+

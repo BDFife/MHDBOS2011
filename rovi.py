@@ -7,21 +7,39 @@ from secrets import apikey, sign
 # Rovi Secrets
 HOSTNAME = 'api.rovicorp.com'
 NAMEPATH = 'data/v1/name'
+ALBUMPATH = 'data/v1/album'
 MUSICPATH = 'search/v2/music'
-F = 'search/v2/music'
 
 def get_artist(id):
     params = []
     params.append(('id', id))
-
-    return get_rovi_response(NAMEPATH, 'info', params)
+    response = get_rovi_response(NAMEPATH, 'info', params)
+    return response["name"]
 
 def get_artist_by_name(name):
     params = []
     params.append(('name', name))
-    return get_rovi_response(NAMEPATH, 'info', params)
+    response = get_rovi_response(NAMEPATH, 'info', params)
+    return response["name"]
 
+def get_album(id):
+    params = []
+    params.append(('albumid', id))
+    response = get_rovi_response(ALBUMPATH, 'info', params)
+    return response["album"]
 
+def get_album(id, param_list):
+    params = []
+    params.append(('albumid', id))
+    params.extend(param_list)
+    response = get_rovi_response(ALBUMPATH, 'info', params)
+    return response["album"]
+
+def get_verbose_album(id):
+    params = []
+    params.append(('include', 'styles,moods,themes,primaryreview,images'))
+    return get_album(id, params)
+ 
 def get_autocomplete(query):
     params = []
     if isinstance(query, unicode):
@@ -30,6 +48,32 @@ def get_autocomplete(query):
     params.append(('entitytype', 'artist'))
     params.append(('size', 10))
     return get_rovi_response(MUSICPATH, 'autocomplete', params)
+
+def get_filterbrowse_christmas(params):
+    param_list.append(('styleid', 'MA0000011929'))
+    return get_rovi_response(MUSICPATH, 'filterbrowse', params)
+
+def get_album_styles(id):   
+    params = []
+    params.append(('include', "styles"))
+    album = get_album(id, params)
+    styles = album["styles"]
+    return styles
+
+def get_album_moods(id):
+    params = []
+    params.append(('include', "moods"))
+    album = get_album(id, params)
+    moods = album["moods"]
+    return moods
+
+def get_album_themes(id):
+    params = []
+    params.append(('include', "themes"))
+    album = get_album(id, params)
+    themes = album["themes"]
+    return themes
+
 
 def get_rovi_response(path, method, param_list):
     param_list.append(('apikey', apikey()))
