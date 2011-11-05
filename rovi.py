@@ -113,7 +113,11 @@ def get_rovi_response(path, method, param_list):
         response_dict = cache[url]
     else:
         f = urllib.urlopen(url)
-        response_dict = json.loads(f.read())
+        http_data = f.read()
+        try:
+            response_dict = json.loads(http_data)
+        except:
+            print http_data
         cache[url] = response_dict
         
     return response_dict
