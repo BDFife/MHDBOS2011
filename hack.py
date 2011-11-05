@@ -4,7 +4,7 @@ from flask import request
 
 
 ## Don't forget to enter your own API keys into the secrets file! 
-from rovi import get_artist, get_artist_by_name, get_autocomplete, get_verbose_album, get_filterbrowse_christmas
+from rovi import get_artist, get_artist_by_name, get_autocomplete, get_verbose_album, get_filterbrowse_christmas, get_filterbrowse_christmas_full
 
 import urllib
 import json
@@ -26,13 +26,22 @@ def get_best_image(album):
 
 @app.route('/')
 def index():
-    return render_template('index.html', testName="Jim Rocks!")
-
-@app.route('/show/albumfromstyle/<styleid>')
-def album_from_style(styleid):
     params = []
-    params.append(('filter', "subgenreid:" + styleid))
-    params.append(('include', "images"))
+    params.append(('facet', "genre"))
+    response = get_filterbrowse_christmas_full(params)
+    facets = response["searchResponse"]["facetCounts"][0]["facetCount"]
+    
+    facet_hash = {}
+    for facet in facets:
+        facet_hash[facet["name"]] = facet["id"]
+    
+    return render_template('index.html', facet_hash=facet_hash)
+
+@app.route('/show/albumfromgenre/<genreid>')
+def album_from_style(genreid):
+    params = []
+    params.append(('filter', "genreid:" + genreid))
+    params.append(('size', 1))
     results = get_filterbrowse_christmas(params)
     albumid = results[0]["album"]["ids"]["albumId"]
     return show_album(albumid)
