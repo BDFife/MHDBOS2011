@@ -1,7 +1,5 @@
-import urllib, urllib2, urllib3
+import urllib
 import json
-from xml.dom import minidom
-import time
 import hashlib
 import logging
 from secrets import apikey, sign
