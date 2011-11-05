@@ -4,7 +4,7 @@ from flask import request
 
 
 ## Don't forget to enter your own API keys into the secrets file! 
-from secrets import sign, key
+from rovi import get_artist, get_artist_by_name, get_autocomplete
 
 import urllib
 import json
@@ -20,18 +20,12 @@ def index():
 @app.route('/show/artist/<artist>')
 def show_artist(artist):
 
-    my_url = 'http://api.rovicorp.com/data/v1/name/info?apikey=' + str(key()) + '&sig=' + str(sign()) + '&name=' + str(artist)
-    
-    print my_url
-
-    url_data = urllib.urlopen(my_url)
-    my_data = url_data.read()
-    my_data = json.loads(my_data)
+    artist = get_artist_by_name(artist)
 
     artist_info = {}
-    artist_info["name"] = my_data["name"]["name"]
-    artist_info["birth"] = my_data["name"]["birth"]["date"]
-    artist_info["home"] = my_data["name"]["birth"]["place"]
+    artist_info["name"] = artist["name"]["name"]
+    artist_info["birth"] = artist["name"]["birth"]["date"]
+    artist_info["home"] = artist["name"]["birth"]["place"]
 
     return render_template('artist.html', artist_info=artist_info)
 
