@@ -41,6 +41,7 @@ def index():
 def album_from_style(genreid):
     params = []
     params.append(('filter', "genreid:" + genreid))
+    params.append(('size', 1))
     results = get_filterbrowse_christmas(params)
     albumid = results[0]["album"]["ids"]["albumId"]
     return show_album(albumid)
