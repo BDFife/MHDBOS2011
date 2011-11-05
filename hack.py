@@ -43,7 +43,7 @@ def album_from_style(genreid):
     params.append(('filter', "genreid:" + genreid))
     params.append(('size', 1))
     results = get_filterbrowse_christmas(params)
-    albumid = results[0]["album"]["ids"]["albumId"]
+    albumid = results[0]["album"]["id"]
     return show_album(albumid)
 
 @app.route('/show/artist/<artist>')
