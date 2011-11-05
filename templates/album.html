@@ -7,6 +7,10 @@
 
 <h1>{{album["title"]}}</h1>
 
+<h2> {{hello}}</h2>
+
+<img src="{{image_url}}">
+
 <p>{{album["primaryReview"]["text"]}}</p>
 
 <p>Themes are:</p>
@@ -14,6 +18,12 @@
 {% for desc in album["themes"] %}
 
 <p> {{desc["id"]}} {{desc["name"]}} {{desc["weight"]}} </p>
+
+<ul>
+	{% for albumresponse in theme_hash[desc["id"]] %}
+		<li>{{albumresponse["album"]["title"]}}</li>
+	{% endfor %}
+</ul>
 
 {% endfor %}
 
@@ -23,6 +33,11 @@
 {% for desc in album["moods"] %}
 
 <p> {{desc["id"]}} {{desc["name"]}} {{desc["weight"]}} </p>
+<ul>
+	{% for albumresponse in mood_hash[desc["id"]] %}
+		<li>{{albumresponse["album"]["title"]}}</li>
+	{% endfor %}
+</ul>
 
 {% endfor %}
 
@@ -31,7 +46,12 @@
 
 {% for desc in album["styles"] %}
 
-<p> {{desc["id"]}} {{desc["name"]}} {{desc["weight"]}} </p>
+<p> {{desc["id"]}} {{desc["name"]}}</p>
+<ul>
+	{% for albumresponse in style_hash[desc["id"]] %}
+		<li>{{albumresponse["album"]["title"]}}</li>
+	{% endfor %}
+</ul>
 
 {% endfor %}
 

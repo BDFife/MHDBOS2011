@@ -35,7 +35,46 @@ def show_album(albumid):
 
     album = get_verbose_album(albumid)
 
-    return render_template('album.html', album=album)
+    images = album["images"]["front"]
+    styles = album["styles"] 
+    moods = album["moods"] 
+    themes = album["themes"] 
+    
+    image_url = ""
+
+    for image in images:
+        if image_url == "":
+            image_url = image["url"]
+        if image["formatid"] == 63:
+            image_url = image["url"]
+
+    style_hash = {}
+    mood_hash = {}
+    theme_hash = {}
+
+
+    for theme in themes:
+        params = []
+        params.append(('filter', "themeid:" + theme["id"]))
+        params.append(('include', "images"))
+        results = get_filterbrowse_christmas(params) 
+        theme_hash[theme["id"]] = results
+
+    for mood in moods:
+        params = []
+        params.append(('filter', "moodid:" + mood["id"]))
+        params.append(('include', "images"))
+        results = get_filterbrowse_christmas(params) 
+        mood_hash[mood["id"]] = results
+
+    for style in styles:
+        params = []
+        params.append(('filter', "subgenreid:" + style["id"]))
+        params.append(('include', "images"))
+        results = get_filterbrowse_christmas(params) 
+        style_hash[style["id"]] = results
+
+    return render_template('album.html', album=album, hello="hello world", image_url=image_url, style_hash=style_hash, theme_hash=theme_hash, mood_hash=mood_hash)
 
 
 @app.route('/autocomplete/<query>')
