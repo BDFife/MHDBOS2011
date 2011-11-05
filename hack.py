@@ -4,7 +4,7 @@ from flask import request
 
 
 ## Don't forget to enter your own API keys into the secrets file! 
-from rovi import get_artist, get_artist_by_name, get_autocomplete, get_verbose_album
+from rovi import get_artist, get_artist_by_name, get_autocomplete, get_verbose_album, get_filterbrowse_christmas
 
 import urllib
 import json
@@ -46,6 +46,36 @@ def autocomplete(query):
     autocomplete_info = autocomplete["autocompleteResponse"]["results"]
 
     return render_template('autocomplete.html', autocomplete=autocomplete_info)
+
+
+@app.route('/filterbrowse/mood/<descid>')
+def filterbrowse_mood(descid):
+
+    params = []
+    params.append(('filter', "moodid:" + descid))
+    results = get_filterbrowse_christmas(params) 
+    
+    return render_template('filterbrowse.html', results=results)
+
+@app.route('/filterbrowse/style/<descid>')
+def filterbrowse_style(descid):
+
+    params = []
+    params.append(('filter', "subgenreid:" + descid))
+    results = get_filterbrowse_christmas(params) 
+    
+    return render_template('filterbrowse.html', results=results)
+
+
+@app.route('/filterbrowse/theme/<descid>')
+def filterbrowse_theme(descid):
+
+    params = []
+    params.append(('filter', "themeid:" + descid))
+    results = get_filterbrowse_christmas(params) 
+    
+    return render_template('filterbrowse.html', results=results)
+
 
 @app.route('/show/name/<name>')
 def show_name(name):

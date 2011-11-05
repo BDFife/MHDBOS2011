@@ -1,0 +1,19 @@
+<html>
+<head>
+  <title>Filterbrowse</title>
+  <link rel="stylesheet" href="/static/hack.css" type="text/css">
+</head>
+<body>
+
+<h1>FilterBrowse Results</h1>
+
+{% for albumresponse in results %}
+
+<p> {{albumresponse["album"]["title"]}} </p>
+
+{% endfor %}
+
+
+
+</body>
+</html>
