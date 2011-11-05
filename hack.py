@@ -29,6 +29,15 @@ def show_artist(artist):
 
     return render_template('artist.html', artist_info=artist_info)
 
+@app.route('/autocomplete/<query>')
+def autocomplete(query):
+
+    autocomplete = get_autocomplete(query)
+
+    autocomplete_info = autocomplete["autocompleteResponse"]["results"]
+
+    return render_template('autocomplete.html', autocomplete=autocomplete_info)
+
 @app.route('/show/name/<name>')
 def show_name(name):
     return render_template('name.html', name=name)
