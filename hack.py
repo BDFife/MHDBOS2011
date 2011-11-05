@@ -4,7 +4,7 @@ from flask import request
 
 
 ## Don't forget to enter your own API keys into the secrets file! 
-from rovi import get_artist, get_artist_by_name, get_autocomplete
+from rovi import get_artist, get_artist_by_name, get_autocomplete, get_verbose_album
 
 import urllib
 import json
@@ -23,11 +23,20 @@ def show_artist(artist):
     artist = get_artist_by_name(artist)
 
     artist_info = {}
-    artist_info["name"] = artist["name"]["name"]
-    artist_info["birth"] = artist["name"]["birth"]["date"]
-    artist_info["home"] = artist["name"]["birth"]["place"]
+    artist_info["name"] = artist["name"]
+    artist_info["birth"] = artist["birth"]["date"]
+    artist_info["home"] = artist["birth"]["place"]
 
     return render_template('artist.html', artist_info=artist_info)
+
+
+@app.route('/show/album/<albumid>')
+def show_album(albumid):
+
+    album = get_verbose_album(albumid)
+
+    return render_template('album.html', album=album)
+
 
 @app.route('/autocomplete/<query>')
 def autocomplete(query):
