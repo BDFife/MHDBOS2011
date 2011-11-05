@@ -1,0 +1,19 @@
+<html>
+<head>
+  <title> {{autocomplete["name"]}}</title>
+  <link rel="stylesheet" href="/static/hack.css" type="text/css">
+</head>
+<body>
+
+<h1> Autocomplete Page </h1>
+
+<p> Here's what we know about the artist you selected: </p>
+
+{% for s in autocomplete %}
+
+<p> {{s}} </p>
+
+{% endfor %}
+
+</body>
+</html>
