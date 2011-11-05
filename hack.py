@@ -13,9 +13,29 @@ import time
 
 app = Flask (__name__)
 
+
+def get_best_image(album):
+    images = album["images"]["front"]
+    image_url = ""
+    for image in images:
+#        if image_url == "":
+#            image_url = image["url"]
+        if image["formatid"] == 63:
+            image_url = image["url"]
+    return image_url
+
 @app.route('/')
 def index():
     return render_template('index.html', testName="Jim Rocks!")
+
+@app.route('/show/albumfromstyle/<styleid>')
+def album_from_style(styleid):
+    params = []
+    params.append(('filter', "subgenreid:" + styleid))
+    params.append(('include', "images"))
+    results = get_filterbrowse_christmas(params)
+    albumid = results[0]["album"]["ids"]["albumId"]
+    return show_album(albumid)
 
 @app.route('/show/artist/<artist>')
 def show_artist(artist):
@@ -35,46 +55,41 @@ def show_album(albumid):
 
     album = get_verbose_album(albumid)
 
-    images = album["images"]["front"]
+    
     styles = album["styles"] 
     moods = album["moods"] 
     themes = album["themes"] 
     
-    image_url = ""
-
-    for image in images:
-        if image_url == "":
-            image_url = image["url"]
-        if image["formatid"] == 63:
-            image_url = image["url"]
+    image_url = get_best_image(album)
 
     style_hash = {}
     mood_hash = {}
-    theme_hash = {}
+    #theme_hash = {}
+    image_hash = {}
 
-
-    for theme in themes:
-        params = []
-        params.append(('filter', "themeid:" + theme["id"]))
-        params.append(('include', "images"))
-        results = get_filterbrowse_christmas(params) 
-        theme_hash[theme["id"]] = results
+    #for theme in themes:
+    #   params = []
+    #    params.append(('filter', "themeid:" + theme["id"]))
+    #    params.append(('include', "images"))
+    #    results = get_filterbrowse_christmas(params)
+    #    theme_hash[theme["id"]] = results
 
     for mood in moods:
         params = []
         params.append(('filter', "moodid:" + mood["id"]))
         params.append(('include', "images"))
-        results = get_filterbrowse_christmas(params) 
+        results = get_filterbrowse_christmas(params)
         mood_hash[mood["id"]] = results
 
     for style in styles:
         params = []
         params.append(('filter', "subgenreid:" + style["id"]))
         params.append(('include', "images"))
-        results = get_filterbrowse_christmas(params) 
+        results = get_filterbrowse_christmas(params)
         style_hash[style["id"]] = results
 
-    return render_template('album.html', album=album, hello="hello world", image_url=image_url, style_hash=style_hash, theme_hash=theme_hash, mood_hash=mood_hash)
+    return render_template('album.html', album=album, hello="hello world", image_hash=image_hash,
+                           image_url=image_url, style_hash=style_hash, mood_hash=mood_hash)
 
 
 @app.route('/autocomplete/<query>')
@@ -124,3 +139,13 @@ if __name__ == '__main__':
     app.debug = True
     app.run()
     app.logger.debug('The logger is running, hooray!')
+    
+    
+    
+
+
+#def hash_images(results):
+#    imghash = {}
+#    for result in results:
+#        id = result["album"]
+#        images = result["album"]["
