@@ -1,0 +1,41 @@
+<html>
+<head>
+  <title> {{album["title"]}}</title>
+  <link rel="stylesheet" href="/static/hack.css" type="text/css">
+</head>
+<body>
+
+<h1>{{album["title"]}}</h1>
+
+<p>{{album["primaryReview"]["text"]}}</p>
+
+<p>Themes are:</p>
+
+{% for desc in album["themes"] %}
+
+<p> {{desc["id"]}} {{desc["name"]}} {{desc["weight"]}} </p>
+
+{% endfor %}
+
+
+<p>Moods are:</p>
+
+{% for desc in album["moods"] %}
+
+<p> {{desc["id"]}} {{desc["name"]}} {{desc["weight"]}} </p>
+
+{% endfor %}
+
+
+<p>Styles are:</p>
+
+{% for desc in album["moods"] %}
+
+<p> {{desc["id"]}} {{desc["name"]}} {{desc["weight"]}} </p>
+
+{% endfor %}
+
+
+
+</body>
+</html>
