@@ -3,10 +3,10 @@ import hashlib
 
 
 # Rovi Secrets
-APIKEY = 'ENTER_YOUR_KEY_HERE'
-SECRET = 'ENTER_YOUR_SECRET_HERE'
+APIKEY = 'MY API KEY'
+SECRET = 'MY SECRET'
 
-def key():
+def apikey():
     return APIKEY
 
 def secret():
