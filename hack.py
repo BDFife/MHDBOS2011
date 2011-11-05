@@ -13,6 +13,10 @@ import time
 
 app = Flask (__name__)
 
+# Don't show christmas or holidays
+bad_styles = ['MA0000011929', 'MA0000012148']
+banned_styles = set(bad_styles)
+
 
 def get_best_image(album):
     images = album["images"]["front"]
@@ -91,6 +95,8 @@ def show_album(albumid):
         mood_hash[mood["id"]] = results
 
     for style in styles:
+        if style["id"] in banned_styles:
+            continue
         params = []
         params.append(('filter', "subgenreid:" + style["id"]))
         params.append(('include', "images"))
