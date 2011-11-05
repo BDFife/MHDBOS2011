@@ -47,7 +47,7 @@ def get_autocomplete(query):
     params = []
     if isinstance(query, unicode):
         query = query.encode('utf-8')
-    params.append(('query', query))ever
+    params.append(('query', query))
     params.append(('entitytype', 'artist'))
     params.append(('size', 10))
     return get_rovi_response(MUSICPATH, 'autocomplete', params)
