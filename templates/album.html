@@ -22,7 +22,7 @@
 <p> {{desc["id"]}} {{desc["name"]}} {{desc["weight"]}} </p>
 <ul>
 	{% for albumresponse in mood_hash[desc["id"]] %}
-		<li>{{albumresponse["album"]["title"]}}</li>
+		<li><a href='/show/album/{{albumresponse["album"]["ids"]["albumId"]}}'>{{albumresponse["album"]["title"]}}</a></li>
 	{% endfor %}
 </ul>
 
@@ -36,7 +36,7 @@
 <p> {{desc["id"]}} {{desc["name"]}}</p>
 <ul>
 	{% for albumresponse in style_hash[desc["id"]] %}
-		<li>{{albumresponse["album"]["title"]}}</li>
+		<li><a href='/show/album/{{albumresponse["album"]["ids"]["albumId"]}}'>{{albumresponse["album"]["title"]}}</a></li>
 	{% endfor %}
 </ul>
 
