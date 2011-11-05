@@ -10,6 +10,9 @@ NAMEPATH = 'data/v1/name'
 ALBUMPATH = 'data/v1/album'
 MUSICPATH = 'search/v2/music'
 
+cache = {}
+
+
 def get_artist(id):
     params = []
     params.append(('id', id))
@@ -90,9 +93,15 @@ def get_rovi_response(path, method, param_list):
     
     print url
     
-    f = urllib.urlopen(url)
-    response_dict = json.loads(f.read())
+    response_dict = {}
     
+    if url in cache:
+        response_dict = cache[url]
+    else:
+        f = urllib.urlopen(url)
+        response_dict = json.loads(f.read())
+        cache[url] = response_dict
+        
     return response_dict
 
 
