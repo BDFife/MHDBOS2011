@@ -58,6 +58,13 @@ def get_filterbrowse_christmas(params):
     response = get_rovi_response(MUSICPATH, 'filterbrowse', params)
     return response["searchResponse"]["results"]
 
+def get_filterbrowse_christmas_pages():
+    params = []
+    params.append(('filter', 'subgenreid:MA0000011929'))
+    params.append(('entitytype', 'album'))
+    response = get_rovi_response(MUSICPATH, 'filterbrowse', params)
+    return response["searchResponse"]["totalResultCounts"]
+
 def get_album_styles(id):   
     params = []
     params.append(('include', "styles"))
