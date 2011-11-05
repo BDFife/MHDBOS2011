@@ -50,8 +50,10 @@ def get_autocomplete(query):
     return get_rovi_response(MUSICPATH, 'autocomplete', params)
 
 def get_filterbrowse_christmas(params):
-    param_list.append(('styleid', 'MA0000011929'))
-    return get_rovi_response(MUSICPATH, 'filterbrowse', params)
+    params.append(('filter', 'subgenreid:MA0000011929'))
+    params.append(('entitytype', 'album'))
+    response = get_rovi_response(MUSICPATH, 'filterbrowse', params)
+    return response["searchResponse"]["results"]
 
 def get_album_styles(id):   
     params = []
