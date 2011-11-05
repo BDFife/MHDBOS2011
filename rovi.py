@@ -4,11 +4,10 @@ from xml.dom import minidom
 import time
 import hashlib
 import logging
+from secrets import key, sign
 
 # Rovi Secrets
 HOSTNAME = 'api.rovicorp.com'
-APIKEY = 'YOUR KEY'
-SECRET = 'YOUR SECRET'
 NAMEPATH = 'data/v1/name'
 MUSICPATH = 'search/v2/music'
 
@@ -60,20 +59,4 @@ def get_rovi_response(path, method, param_dict):
 
 def hostname():
     return HOSTNAME
-
-def apikey():
-    return APIKEY
-
-def secret():
-    return SECRET
-
-def sign():
-    my_time = int(time.time())
-    sig = hashlib.md5()
-    sig.update(APIKEY)
-    sig.update(SECRET)
-    sig.update(str(my_time))
-
-    return sig.hexdigest()
-
 
