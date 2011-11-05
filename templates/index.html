@@ -1,13 +1,15 @@
 <html>
 <head>
-  <title> Placeholder </title>
+  <title>Christmas Hack</title>
   <link rel="stylesheet" href="/static/hack.css" type="text/css">
 </head>
 <body>
 
-<h1> Placeholder Page </h1>
-<p> This is a placeholder page, thingy </p>
-<p> You can reference python variables like this: {{testName}} </p>
-<p> Check out the jinja template documentation to see more </p>
+<h1>Welcome!</h1>
+<p>Pick a genre</p>
+{% for key, val in facet_hash.iteritems() %}
+		<li><a href="/show/albumfromgenre/{{val}}">{{key}}</a></li>
+{% endfor %}
+	
 </body>
 </html>
