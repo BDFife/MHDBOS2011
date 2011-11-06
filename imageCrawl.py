@@ -3,7 +3,7 @@ from rovi import get_filterbrowse_christmas, get_filterbrowse_christmas_pages, g
 import json
 import time
 
-f = open("albums.snapshot.json", "r")
+f = open("albumsdump.json", "r")
 albums = json.load(f)
 f.close()
 
