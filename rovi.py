@@ -2,6 +2,7 @@ import urllib
 import json
 import hashlib
 import logging
+import time
 from secrets import apikey, sign
 
 # Rovi Secrets
@@ -38,6 +39,16 @@ def get_album(id, param_list):
     response = get_rovi_response(ALBUMPATH, 'info', params)
     return response["album"]
 
+def get_album_image(id):
+    params = []
+    params.append(('albumid', id))
+    response = get_rovi_response(ALBUMPATH, 'images', params)
+    try:
+        images = response["images"]["front"]
+        return get_best_image_from_list(images)
+    except:
+        return None 
+
 def get_verbose_album(id):
     params = []
     params.append(('include', 'styles,moods,themes,primaryreview,images'))
@@ -56,14 +67,25 @@ def get_filterbrowse_christmas(params):
     params.append(('filter', 'subgenreid:MA0000011929'))
     params.append(('entitytype', 'album'))
     response = get_rovi_response(MUSICPATH, 'filterbrowse', params)
-    return response["searchResponse"]["results"]
+    
+    try:
+        results = response["searchResponse"]["results"]
+    except:
+        print response
+    return results
 
 def get_filterbrowse_christmas_pages():
     params = []
     params.append(('filter', 'subgenreid:MA0000011929'))
     params.append(('entitytype', 'album'))
     response = get_rovi_response(MUSICPATH, 'filterbrowse', params)
-    return response["searchResponse"]["totalResultCounts"]
+    results = {}
+    try:
+        results = response["searchResponse"]["totalResultCounts"]
+    except:
+        print response
+        
+    return results
 
 # unused -- safe to remove
 def get_filterbrowse_christmas_full(params):
@@ -112,17 +134,40 @@ def get_rovi_response(path, method, param_list):
     if url in cache:
         response_dict = cache[url]
     else:
-        f = urllib.urlopen(url)
-        http_data = f.read()
-        try:
-            response_dict = json.loads(http_data)
-        except:
-            print http_data
-        cache[url] = response_dict
         
+        retry = True        
+        while (retry):
+            f = urllib.urlopen(url)
+            http_data = f.read()
+            if http_data == "":
+                print "Failed on URL, retrying: " + url
+                time.sleep(60)
+                continue
+            response_dict = json.loads(http_data)
+            retry = False
+             
+            
     return response_dict
 
 
 def hostname():
     return HOSTNAME
 
+def get_best_image(album):
+    images = album["images"]["front"]
+    image_url = ""
+    for image in images:
+#        if image_url == "":
+#            image_url = image["url"]
+        if image["formatid"] == 63:
+            image_url = image["url"]
+            return image_url
+    return image_url
+
+def get_best_image_from_list(images):
+    image_url = ""
+    for image in images:
+        if image["formatid"] == 63:
+            image_url = image["url"]
+            return image_url
+    return image_url
