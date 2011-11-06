@@ -88,7 +88,7 @@ def show_artist(artist):
 def show_album(albumid):
 
     album = get_verbose_album(albumid)
-    
+    thisid = album["ids"]["albumId"]
     # yank rovilinks from the description
     if album["primaryReview"] is None:
         album["primaryReview"]["text"] = "Sorry, no review available for this album."
@@ -122,21 +122,23 @@ def show_album(albumid):
     #   results = get_filterbrowse_christmas(params)
     #    mood_hash[mood["id"]] = results
 
-    seen = {}
+    seen = []
     listsomething = []
     for style in styles:
         if style["id"] in banned_styles:
             continue
-        items = topitems[style["id"]]
-        # Make sure no duplicates
-        for item in items:
-            if item in seen:
-                items.remove(item)
-            else:
-                seen[item] = 1
-                
-        if len(items) > 1:
-            style_hash[style["name"]] = items
+        
+        styleid = style["id"]
+        if styleid in topitems:
+            items = topitems[styleid]
+            # Make sure no duplicates
+            for item in items:
+                if item in seen or item == albumid:
+                    items.remove(item)
+                else:
+                    seen.append(item)                    
+            if len(items) > 1:
+                style_hash[style["name"]] = items
 
     return render_template('album.html', album=album, hello="hello world", image_map=image_map,
                            image_url=image_url, style_hash=style_hash)
