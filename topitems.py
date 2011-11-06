@@ -8,6 +8,7 @@ style_hash = json.load(f)
 f.close()
 
 top_desc_to_albums = {}
+albums = {}
 
 for id, name in style_hash.iteritems():
     params = []
