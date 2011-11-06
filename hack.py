@@ -131,12 +131,14 @@ def show_album(albumid):
         
         styleid = unicode(style["id"])
         # For some reason if you don't ask for the type you get dups, but if you do you don't.
+        # That seems bizarre, unless it's causing some conversion to happen below
         type(styleid)
         if styleid in topitems:
             items = topitems[styleid]
             # Make sure no duplicates
             for item in items:
-                if item in seen or item == albumid:
+
+                if item in seen or item == thisid:
                     items.remove(item)
                 else:
                     seen.append(item)                    
