@@ -17,13 +17,15 @@
 
 {% for desc in album["moods"] %}
 
+
+<div class="column">
 <p> {{desc["id"]}} {{desc["name"]}} {{desc["weight"]}} </p>
 <ul>
 	{% for albumresponse in mood_hash[desc["id"]] %}
 		<li><a href='/show/album/{{albumresponse["id"]}}'>{{albumresponse["album"]["title"]}}</a></li>
 	{% endfor %}
 </ul>
-
+</div>
 {% endfor %}
 
 
