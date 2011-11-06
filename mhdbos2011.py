@@ -4,7 +4,7 @@ from flask import request
 
 
 ## Don't forget to enter your own API keys into the secrets file! 
-from rovi import get_artist, get_artist_by_name, get_autocomplete, get_verbose_album, get_filterbrowse_christmas, get_filterbrowse_christmas_full, get_best_image, get_genremap
+from rovi import get_artist, get_artist_by_name, get_autocomplete, get_verbose_album, get_filterbrowse_christmas, get_filterbrowse_christmas_full, get_best_image, get_genremap, get_album_tracks
 
 import urllib
 import json
@@ -96,8 +96,8 @@ def show_artist(artist):
 @app.route('/show/album/<albumid>')
 def show_album(albumid):
 
-    album = get_verbose_album(albumid)
-    thisid = album["ids"]["albumId"]
+    album = get_verbose_album(albumid)    
+    tracks = album["tracks"]
     # yank rovilinks from the description
     if album["primaryReview"] is None:
         album["primaryReview"] = {}
@@ -149,7 +149,7 @@ def show_album(albumid):
                 type(item)
                 if item in seen:
                     items.remove(item)
-                elif item == thisid:
+                elif item == albumid:
                     items.remove(item)
                 elif item not in image_map:
                     items.remove(item)
@@ -159,7 +159,7 @@ def show_album(albumid):
                 style_hash[style["name"]] = items
 
     return render_template('album.html', album=album, hello="hello world", image_map=image_map,
-                           image_url=image_url, style_hash=style_hash)
+                           image_url=image_url, style_hash=style_hash, tracks=tracks)
 
 
 @app.route('/autocomplete/<query>')

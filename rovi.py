@@ -12,7 +12,7 @@ ALBUMPATH = 'data/v1/album'
 MUSICPATH = 'search/v2/music'
 DESCRIPTORPATH = 'data/v1/descriptor'
 
-debug = False
+debug = True
 
 cache = {}
 
@@ -54,9 +54,14 @@ def get_album_image(id):
 
 def get_verbose_album(id):
     params = []
-    params.append(('include', 'styles,moods,themes,primaryreview,images'))
+    params.append(('include', 'styles,moods,themes,primaryreview,images,tracks'))
     return get_album(id, params)
  
+def get_album_tracks(id):
+    params = []
+    params.append(('albumid', id))
+    return get_rovi_response(ALBUMPATH, 'tracks', params)
+
 def get_autocomplete(query):
     params = []
     if isinstance(query, unicode):
