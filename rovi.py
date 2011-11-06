@@ -74,7 +74,8 @@ def get_filterbrowse_christmas(params):
     try:
         results = response["searchResponse"]["results"]
     except:
-        print response
+        if debug == True:
+            print response
     return results
 
 def get_filterbrowse_christmas_pages():
@@ -139,16 +140,17 @@ def get_rovi_response(path, method, param_list):
         response_dict = cache[url]
     else:
         
-        retry = True        
-        while (retry):
+        count = 0
+        while count < 5:
             f = urllib.urlopen(url)
             http_data = f.read()
             if http_data == "":
                 print "Failed on URL, retrying: " + url
                 time.sleep(60)
+                count += 1
                 continue
             response_dict = json.loads(http_data)
-            retry = False
+            return response_dict
              
             
     return response_dict
