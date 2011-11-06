@@ -5,12 +5,7 @@ body {
 }
 
 h1 {
-    background-color: white;
-    -webkit-border-radius: 15px;
-    padding: 10px;
-    width: 400px;
-    display: block;
-    text-align: center;
+	text-align: center;
 }
 
 #main {
@@ -18,13 +13,19 @@ h1 {
     -webkit-border-radius: 15px;
     padding: 10px;
     width: 400px;
+	margin:  auto;
 }
 
 ul {
     list-style-type: none;
     padding: 0;
     margin: 0;
+	font: 1.25em "Helvetica Neue", Arial, Helvetica, Geneva, sans-serif;
+}
 
+ul a {
+	text-decoration: none;
+	color: black;
 }
 
 li {
