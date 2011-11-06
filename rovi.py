@@ -141,7 +141,7 @@ def get_rovi_response(path, method, param_list):
         
         retry = True        
         while (retry):
-            f = urllib2.urlopen(url)
+            f = urllib.urlopen(url)
             http_data = f.read()
             if http_data == "":
                 print "Failed on URL, retrying: " + url
