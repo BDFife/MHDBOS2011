@@ -9,12 +9,26 @@
 <a href='/'>back to home</a>
 <h1>{{album["primaryArtists"][0]["name"]}} :: {{album["title"]}}</h1>
 
-<img src="{{image_url}}">
+<div class='albumplay'>
+	<img class ='albumimage' src="{{image_url}}" align="left">
+	{{album["primaryReview"]["text"]}}
+	<!--
+	<div class='tracks'>
+		<ul>
+		{% for track in tracks %}
+			<li>{{track["title"]}}
+				{% if track["sample"] != "" %}
+				<embed type="application/x-shockwave-flash" flashvars='audioUrl={{track["sample"]}}' src="http://www.google.com/reader/ui/3523697345-audio-player.swf" width="400" height="20" quality="best"></embed>
+		        {% endif %}
+			</li>
+		{% endfor %}
+		</ul>
+	</div>
+	-->
+</div>
 
-<p>{{album["primaryReview"]["text"]}}</p>
 
-<div class="style_header">Styles are:</div>
-
+<div class="clear"><br/></div>
 {% for style, responselist in style_hash.iteritems() %}
 	<div class="column">
 	<div class="style_title">{{style}}</div>
