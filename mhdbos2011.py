@@ -18,7 +18,6 @@ app = Flask (__name__)
 bad_styles = ['MA0000011929', 'MA0000012148']
 banned_styles = set(bad_styles)
 
-#genre_response = get_genremap()
 
 
 my_url = "http://bluesock.org/~brian/topitemmap.json"
@@ -51,12 +50,66 @@ for styleid, stylename in style_map.iteritems():
 
 alpha_styles.sort()
 
-# Genre tree
-#genre_response = get_genremap()
-#for genre in genre_response["genres"]:
-#    subgenres = genre["subgenres"]
-#    for subgenre in subgenres:
-#        style_hash[subgenre["id"]] = subgenre["name"]
+topitemsunicode = {}
+
+for key, val in topitems.iteritems():
+    topitemsunicode[unicode(key)] = val
+
+
+def get_top_genres():
+    params = []
+    params.append(('facet', "genre"))
+    response = get_filterbrowse_christmas_full(params)
+    facets = response["searchResponse"]["facetCounts"][0]["facetCount"]
+    
+    facet_hash = {}
+    for facet in facets:
+        facet_hash[facet["id"]] = facet["name"]
+    return facet_hash
+
+genres_with_overlap = get_top_genres()
+genre_tree_full = get_genremap()
+
+genre_tree_pruned = []
+
+for genre in genre_tree_full:
+
+    # If top level genre doesn't overlap, continue
+    if genre["id"] not in genres_with_overlap:
+        continue
+    
+    # Otherwise grab subgenres
+    subgenres_pruned = []
+
+    for subgenre in genre["subgenres"]:
+       
+        # If subgenregenre doesn't overlap, continue
+        if subgenre["id"] not in topitems:
+            continue
+ 
+        # Otherwise, traverse styles
+        styles_pruned = []
+        if unicode("styles") in subgenre:
+            for style in subgenre[unicode("styles")]:
+                if style["id"] in topitemsunicode:
+                    # Add style to list of pruned styles
+                    styles_pruned.append(style)
+                    
+        # If any styles overlap, map it to a special place
+        if len(styles_pruned) > 0:
+            subgenre["styles_pruned"] = styles_pruned
+        
+        # Add subgenre to lists of pruned subgenres
+        subgenres_pruned.append(subgenre)
+    
+    # If any subgenres overlap, map it to a special place
+    if len(subgenres_pruned) > 0:
+        genre["subgenres_pruned"] = subgenres_pruned
+       
+
+    genre_tree_pruned.append(genre)
+
+
 
 
 @app.route('/')
@@ -69,8 +122,7 @@ def index():
     facet_hash = {}
     for facet in facets:
         facet_hash[facet["name"]] = facet["id"]
-    
-    return render_template('index.html', facet_hash=facet_hash, alpha_styles=alpha_styles, reverse_style_map=reverse_style_map)
+    return render_template('index.html', facet_hash=facet_hash, alpha_styles=alpha_styles, reverse_style_map=reverse_style_map, genre_tree=genre_tree_pruned)
 
 @app.route('/show/albumfromgenre/<genreid>')
 def album_from_genre(genreid):

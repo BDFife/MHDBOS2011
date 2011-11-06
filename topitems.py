@@ -13,7 +13,7 @@ albums = {}
 for id, name in style_hash.iteritems():
     params = []
     params.append(("filter", "subgenreid:" + id))
-    params.append(("size", 15))
+    params.append(("size", 25))
     filterresponse = get_filterbrowse_christmas(params)
     topitems = []
     for result in filterresponse:
