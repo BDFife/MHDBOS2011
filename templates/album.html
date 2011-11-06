@@ -4,20 +4,17 @@
   <link rel="stylesheet" href="/static/hack.css" type="text/css">
 </head>
 <body>
-
+<div id="album">
 <h1>{{album["title"]}}</h1>
-
-<h2> {{hello}}</h2>
 
 <img src="{{image_url}}">
 
 <p>{{album["primaryReview"]["text"]}}</p>
 
-
 <p>Styles are:</p>
 
 {% for desc in album["styles"] %}
-
+<div class="column">
 <p> {{desc["id"]}} {{desc["name"]}}</p>
 <ul>
 	{% for albumresponse in style_hash[desc["id"]] %}
@@ -27,7 +24,7 @@
 
 {% endfor %}
 
-
+</div>
 
 </body>
 </html>
