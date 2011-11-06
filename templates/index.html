@@ -7,11 +7,12 @@
 <center>
 
 <div class="main">
-  <h1><img src='http://www.animatedgif.net/seasonal/xmas/dancingsanta_e0.gif' align='left'>Rovi Christmas Findr<img src='http://www.animatedgif.net/seasonal/xmas/dancingsanta_e0.gif' align='right'></h1>
+  <h1><img src='{{url_for('static', filename='dancingsanta_e0.gif')}}' align='left'>Rovi Christmas Findr<img src='{{url_for('static', filename='dancingsanta_e0.gif')}}' align='right'></h1>
   <h3>Explore the Christmas music available from the Rovi database. To start, please select the music Genere you'd like to explore</h3>
   	
   	
  <br/>
+ <!--
   <ul>
   {% for key, val in facet_hash.iteritems() %}
 		<li><a href="{{url_for('album_from_genre', genreid=val)}}">{{key}}</a></li>
@@ -29,6 +30,36 @@
 		<li><a href="{{url_for('album_from_style', genreid=reverse_style_map[style])}}">{{style}}</a></li>
   {% endfor %}    	
   </ul>
+ -->
+<div class='genretree'>
+
+  	<ul class='tree'>
+  		{% for genre in genre_tree %}
+  		<li style="font-size: 24"><a href="/show/albumfromgenre/{{genre['id']}}">{{genre["name"]}}</a>
+  			{% if "subgenres_pruned" in genre %}
+  				<ul class='tree'>
+  					  {% for subgenre in genre["subgenres_pruned"] %}
+						<li style="font-size: 20"><a href="/show/albumfromstyle/{{subgenre['id']}}">{{subgenre['name']}}</a>
+							  {% if "styles_pruned" in subgenre %}
+								<ul class='tree'>
+									 {% for style in subgenre["styles_pruned"] %}
+									 	<li style="font-size: 18"><a href="/show/albumfromstyle/{{style['id']}}">{{style['name']}}</a>
+									 {% endfor %} 
+								</ul>
+							  {% endif %}
+						</li>
+  						{% endfor %} 
+  				</ul>
+  			{% endif %}
+  		</li>
+  		{% endfor %}  	
+  	</ul>
+  	</div>
+  	
+  	<br/>
+  	<br/>
+  	<br/>
+  
 </div>	
 </center>
 </body>
