@@ -3,7 +3,7 @@ from rovi import get_filterbrowse_christmas, get_filterbrowse_christmas_pages, g
 import json
 import time
 
-f = open("albums.snapshot.json", "r")
+f = open("albumsdump.json", "r")
 albums = json.load(f)
 f.close()
 
@@ -19,12 +19,11 @@ def runstuff():
         #print image
         if (image != None):
             image_cache[id] = image
-        if count % 100 == 0:
-            print "Dumping after another 100 %s" % time.ctime()
+        if count % 500 == 0:
+            print "Dumping after another 500 %s" % time.ctime()
             f = open("images.json", "w")
             json.dump(image_cache, f, indent=4)
             f.close()
-        if count % 1000 == 0:
-            return
+ 
         
 runstuff()
