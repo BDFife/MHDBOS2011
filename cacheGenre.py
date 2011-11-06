@@ -8,7 +8,7 @@ def generate_cache():
 
     # determine the total size of the result and calculate # pages
     # (max response size is 100)
-    page_size = 10
+    page_size = 100
     result_size = get_filterbrowse_christmas_pages()
     num_pages = result_size / page_size
 
