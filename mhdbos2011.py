@@ -262,7 +262,7 @@ def show_name(name):
     return render_template('name.html', name=name)
 
 if __name__ == '__main__':
-    app.debug = True
+    app.debug = False
     app.run()
 #    app.logger.debug('The logger is running, hooray!')
     
