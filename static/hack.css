@@ -8,12 +8,31 @@ h1 {
 	text-align: center;
 }
 
+#album {
+	background-color: white;
+	-webkit-border-radius: 15px;
+	padding: 10px;
+	width: 800px;
+	margin: auto;
+}
+
+#album img {
+	float: left;
+	padding: 5px;
+}
+
 #main {
     background-color: white;
     -webkit-border-radius: 15px;
     padding: 10px;
     width: 400px;
 	margin:  auto;
+}
+
+.column {
+	position: relative;
+	float: left;
+	width: 200px;
 }
 
 ul {
