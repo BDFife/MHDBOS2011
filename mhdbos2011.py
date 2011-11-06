@@ -208,7 +208,7 @@ def show_name(name):
 if __name__ == '__main__':
     app.debug = True
     app.run()
-    app.logger.debug('The logger is running, hooray!')
+#    app.logger.debug('The logger is running, hooray!')
     
     
     
