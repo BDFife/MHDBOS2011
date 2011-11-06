@@ -8,31 +8,56 @@ h1 {
 	text-align: center;
 }
 
-#album {
+.album {
 	background-color: white;
 	-webkit-border-radius: 15px;
 	padding: 10px;
 	width: 800px;
 	margin: auto;
+	float: left;
+
 }
+
+
+.album_wrapper {
+    padding: 10px;
+    width: 800px;
+	margin:  auto;
+	float: none;
+}
+
 
 #album img {
 	float: left;
 	padding: 5px;
 }
 
-#main {
+.main {
     background-color: white;
     -webkit-border-radius: 15px;
     padding: 10px;
-    width: 400px;
+    width: 800px;
 	margin:  auto;
+	float: none;
 }
 
 .column {
 	position: relative;
 	float: left;
 	width: 200px;
+}
+
+.style_header {
+	font: 2em "Helvetica Neue", Arial, Helvetica, Geneva, sans-serif;
+	color: red;
+	text-align: center;
+	font-weight: bold;
+}
+
+.style_title {
+	font: 1.25em "Helvetica Neue", Arial, Helvetica, Geneva, sans-serif;
+	color: red;
+	text-decoration: blink;
 }
 
 ul {
@@ -43,8 +68,7 @@ ul {
 }
 
 ul a {
-	text-decoration: none;
-	color: black;
+	color: red;
 }
 
 li {
