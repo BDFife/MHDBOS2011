@@ -17,6 +17,8 @@ app = Flask (__name__)
 bad_styles = ['MA0000011929', 'MA0000012148']
 banned_styles = set(bad_styles)
 
+#genre_response = get_genremap()
+
 
 f = open("topitemmap.json", "r")
 topitems = json.load(f)
