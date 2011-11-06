@@ -13,23 +13,28 @@ import re
 
 app = Flask (__name__)
 
+
 # Don't show christmas or holidays
 bad_styles = ['MA0000011929', 'MA0000012148']
 banned_styles = set(bad_styles)
 
 #genre_response = get_genremap()
 
-f = open("topitemmap.json", "r")
-topitems = json.load(f)
-f.close()
 
-f = open("styles.json", "r")
-style_map = json.load(f)
-f.close()
+my_url = "http://bluesock.org/~brian/topitemmap.json"
+topitems = urllib.urlopen(my_url)
+topitems = topitems.read()
+topitems = json.loads(topitems)
 
-f = open("images.json", "r")
-image_map = json.load(f)
-f.close()
+my_url = "http://bluesock.org/~brian/styles.json"
+style_map = urllib.urlopen(my_url)
+style_map = style_map.read()
+style_map = json.loads(style_map)
+
+my_url = "http://bluesock.org/~brian/images.json"
+image_map = urllib.urlopen(my_url)
+image_map = image_map.read()
+image_map = json.loads(image_map)
 
 reverse_style_map = {}
 alpha_styles = []
