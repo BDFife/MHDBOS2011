@@ -10,7 +10,7 @@ ALBUMPATH = 'data/v1/album'
 MUSICPATH = 'search/v2/music'
 DESCRIPTORPATH = 'data/v1/descriptor'
 
-debug = True
+debug = False
 
 def get_artist(id):
     params = []
