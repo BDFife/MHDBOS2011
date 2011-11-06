@@ -5,10 +5,10 @@
 </head>
 <body>
 
-<h1>Christmas Music</h1>
+
 <div id="main">
-  <p>Explore the Christmas music available from the Rovi database.</p>
-  <p>To start, please select the music Genere you'd like to explore</p>
+  <h1>Christmas Music</h1>
+  <p>Explore the Christmas music available from the Rovi database. To start, please select the music Genere you'd like to explore</p>
   <ul>
   {% for key, val in facet_hash.iteritems() %}
 		<li><a href="/show/albumfromgenre/{{val}}">{{key}}</a></li>
