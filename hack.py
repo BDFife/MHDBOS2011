@@ -9,7 +9,7 @@ from rovi import get_artist, get_artist_by_name, get_autocomplete, get_verbose_a
 import urllib
 import json
 import time
-
+import re
 
 app = Flask (__name__)
 
@@ -59,8 +59,11 @@ def show_artist(artist):
 def show_album(albumid):
 
     album = get_verbose_album(albumid)
-
     
+    # yank rovilinks from the description
+    strip_rlinks = re.compile('(\[.+?\])', re.DOTALL)
+    album["primaryReview"]["text"] = strip_rlinks.sub('', album["primaryReview"]["text"])
+
     styles = album["styles"] 
     moods = album["moods"] 
     themes = album["themes"] 
@@ -154,5 +157,5 @@ if __name__ == '__main__':
 #def hash_images(results):
 #    imghash = {}
 #    for result in results:
-#        id = result["album"]
+
 #        images = result["album"]["
