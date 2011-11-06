@@ -129,7 +129,9 @@ def show_album(albumid):
         if style["id"] in banned_styles:
             continue
         
-        styleid = style["id"]
+        styleid = unicode(style["id"])
+        # For some reason if you don't ask for the type you get dups, but if you do you don't.
+        type(styleid)
         if styleid in topitems:
             items = topitems[styleid]
             # Make sure no duplicates
