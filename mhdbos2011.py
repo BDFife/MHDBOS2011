@@ -19,7 +19,6 @@ banned_styles = set(bad_styles)
 
 #genre_response = get_genremap()
 
-
 f = open("topitemmap.json", "r")
 topitems = json.load(f)
 f.close()
