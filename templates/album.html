@@ -14,21 +14,6 @@
 <p>{{album["primaryReview"]["text"]}}</p>
 
 
-
-<p>Moods are:</p>
-
-{% for desc in album["moods"] %}
-
-<p> {{desc["id"]}} {{desc["name"]}} {{desc["weight"]}} </p>
-<ul>
-	{% for albumresponse in mood_hash[desc["id"]] %}
-		<li><a href='/show/album/{{albumresponse["id"]}}'>{{albumresponse["album"]["title"]}}</a></li>
-	{% endfor %}
-</ul>
-
-{% endfor %}
-
-
 <p>Styles are:</p>
 
 {% for desc in album["styles"] %}

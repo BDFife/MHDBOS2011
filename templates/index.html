@@ -12,7 +12,13 @@
   <ul>
   {% for key, val in facet_hash.iteritems() %}
 		<li><a href="/show/albumfromgenre/{{val}}">{{key}}</a></li>
-  {% endfor %}
+  {% endfor %}  
+  </ul>
+  <p>Even Deeper!</p>
+  <ul>
+ {% for style in alpha_styles %}
+		<li><a href="/show/albumfromstyle/{{reverse_style_map[style]}}">{{style}}</a></li>
+  {% endfor %}    	
   </ul>
 </div>	
 </body>
