@@ -17,6 +17,7 @@ app = Flask (__name__)
 bad_styles = ['MA0000011929', 'MA0000012148']
 banned_styles = set(bad_styles)
 
+genre_response = get_genremap()
 
 f = open("topitemmap.json", "r")
 topitems = json.load(f)
@@ -137,8 +138,12 @@ def show_album(albumid):
             items = topitems[styleid]
             # Make sure no duplicates
             for item in items:
-
-                if item in seen or item == thisid:
+                type(styleid)
+                if item in seen:
+                    items.remove(item)
+                elif item == thisid:
+                    items.remove(item)
+                elif item not in image_map:
                     items.remove(item)
                 else:
                     seen.append(item)                    
