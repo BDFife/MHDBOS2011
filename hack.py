@@ -4,7 +4,7 @@ from flask import request
 
 
 ## Don't forget to enter your own API keys into the secrets file! 
-from rovi import get_artist, get_artist_by_name, get_autocomplete, get_verbose_album, get_filterbrowse_christmas, get_filterbrowse_christmas_full
+from rovi import get_artist, get_artist_by_name, get_autocomplete, get_verbose_album, get_filterbrowse_christmas, get_filterbrowse_christmas_full, get_best_image
 
 import urllib
 import json
@@ -18,15 +18,7 @@ bad_styles = ['MA0000011929', 'MA0000012148']
 banned_styles = set(bad_styles)
 
 
-def get_best_image(album):
-    images = album["images"]["front"]
-    image_url = ""
-    for image in images:
-#        if image_url == "":
-#            image_url = image["url"]
-        if image["formatid"] == 63:
-            image_url = image["url"]
-    return image_url
+
 
 @app.route('/')
 def index():
