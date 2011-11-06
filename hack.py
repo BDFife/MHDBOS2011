@@ -91,7 +91,7 @@ def show_album(albumid):
     
     # yank rovilinks from the description
     if album["primaryReview"] is None:
-        album["primaryReview"]["text"] = "Sorry, no review available for this album".
+        album["primaryReview"]["text"] = "Sorry, no review available for this album."
     else:
         # just in case no bio, and it is "None"
         strip_rlinks = re.compile('(\[.+?\])', re.DOTALL)
