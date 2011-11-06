@@ -7,14 +7,23 @@
 <center>
 
 <div class="main">
-  <h1>Christmas Music</h1>
-  <p>Explore the Christmas music available from the Rovi database. To start, please select the music Genere you'd like to explore</p>
+  <h1><img src='http://www.animatedgif.net/seasonal/xmas/dancingsanta_e0.gif' align='left'>Rovi Christmas Findr<img src='http://www.animatedgif.net/seasonal/xmas/dancingsanta_e0.gif' align='right'></h1>
+  <h3>Explore the Christmas music available from the Rovi database. To start, please select the music Genere you'd like to explore</h3>
+  	
+  	
+ <br/>
   <ul>
   {% for key, val in facet_hash.iteritems() %}
 		<li><a href="/show/albumfromgenre/{{val}}">{{key}}</a></li>
   {% endfor %}  
   </ul>
-  <p>Even Deeper!</p>
+  
+  <h1><img src='http://webdeveloper.com/animations/holiday/christmas/gifs/elf_pulling_xmas_tree_2.gif' align='left'>Dig Even Deeper!
+  	<img src='http://webdeveloper.com/animations/holiday/christmas/gifs/elf_pulling_xmas_tree_2.gif' align='right'>
+  	</h1>
+  	<br/>
+  	<br/>
+  	<br/>
   <ul>
  {% for style in alpha_styles %}
 		<li><a href="/show/albumfromstyle/{{reverse_style_map[style]}}">{{style}}</a></li>
