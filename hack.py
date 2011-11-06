@@ -118,14 +118,21 @@ def show_album(albumid):
     #   results = get_filterbrowse_christmas(params)
     #    mood_hash[mood["id"]] = results
 
+    seen = {}
+    listsomething = []
     for style in styles:
         if style["id"] in banned_styles:
             continue
-        params = []
-        params.append(('filter', "subgenreid:" + style["id"]))
-        params.append(('include', "images"))
-        results = get_filterbrowse_christmas(params)
-        style_hash[style["id"]] = results
+        items = topitems[style["id"]]
+        # Make sure no duplicates
+        for item in items:
+            if item in seen:
+                items.remove(item)
+            else:
+                seen[item] = 1
+                
+        if len(items) > 1:
+            style_hash[style["name"]] = items
 
     return render_template('album.html', album=album, hello="hello world", image_map=image_map,
                            image_url=image_url, style_hash=style_hash)

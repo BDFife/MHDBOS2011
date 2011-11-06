@@ -13,18 +13,19 @@
 
 <p>Styles are:</p>
 
-{% for desc in album["styles"] %}
-<div class="column">
-<p> {{desc["id"]}} {{desc["name"]}}</p>
-<ul>
-	{% for albumresponse in style_hash[desc["id"]] %}
-		<li><a href='/show/album/{{albumresponse["id"]}}'>{{albumresponse["album"]["title"]}}</a></li>
+{% for style, responselist in style_hash.iteritems() %}
+	<div class="column">
+	<p>{{style}}</p>
+	<ul>
+	{% for albumid in responselist %}
+		<li><a href='/show/album/{{albumid}}'><img src='{{image_map[albumid]}}'></a></li>
 	{% endfor %}
-</ul>
-
+	</ul>
+	</div>
 {% endfor %}
 
-</div>
+
+<br/>
 
 </body>
 </html>
