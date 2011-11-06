@@ -6,7 +6,7 @@
 <body>
 <div class="album_wrapper">
 <div class="album">
-<a href='/'>back to home</a>
+<a href="{{url_for('index')}}">back to home</a>
 <h1>{{album["primaryArtists"][0]["name"]}} :: {{album["title"]}}</h1>
 
 <div class='albumplay'>
@@ -35,7 +35,7 @@
 	<ul>
 	{% for albumid in responselist %}
         {% if image_map[albumid] %}
-		<li><a href='/show/album/{{albumid}}'><img src='{{image_map[albumid]}}' class='small'></a></li>
+		<li><a href="{{url_for('show_album', albumid=albumid)}}"><img src='{{image_map[albumid]}}' class='small'></a></li>
         {% endif %}
 	{% endfor %}
 	</ul>
