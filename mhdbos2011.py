@@ -192,22 +192,13 @@ def filterbrowse_theme(descid):
     
     return render_template('filterbrowse.html', results=results)
 
-
 @app.route('/show/name/<name>')
 def show_name(name):
     return render_template('name.html', name=name)
 
 if __name__ == '__main__':
-    app.debug = True
+    #app.debug = True
     app.run()
     app.logger.debug('The logger is running, hooray!')
-    
-    
-    
 
 
-#def hash_images(results):
-#    imghash = {}
-#    for result in results:
-
-#        images = result["album"]["
