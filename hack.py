@@ -61,8 +61,12 @@ def show_album(albumid):
     album = get_verbose_album(albumid)
     
     # yank rovilinks from the description
-    strip_rlinks = re.compile('(\[.+?\])', re.DOTALL)
-    album["primaryReview"]["text"] = strip_rlinks.sub('', album["primaryReview"]["text"])
+    if album["primaryReview"] is None:
+        album["primaryReview"]["text"] = "Sorry, no review available for this album".
+    else:
+        # just in case no bio, and it is "None"
+        strip_rlinks = re.compile('(\[.+?\])', re.DOTALL)
+        album["primaryReview"]["text"] = strip_rlinks.sub('', album["primaryReview"]["text"])
 
     styles = album["styles"] 
     moods = album["moods"] 
