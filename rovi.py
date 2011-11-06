@@ -12,6 +12,7 @@ ALBUMPATH = 'data/v1/album'
 MUSICPATH = 'search/v2/music'
 DESCRIPTORPATH = 'data/v1/descriptor'
 
+debug = False
 
 cache = {}
 
@@ -69,7 +70,7 @@ def get_filterbrowse_christmas(params):
     params.append(('filter', 'subgenreid:MA0000011929'))
     params.append(('entitytype', 'album'))
     response = get_rovi_response(MUSICPATH, 'filterbrowse', params)
-    
+    results = {}
     try:
         results = response["searchResponse"]["results"]
     except:
@@ -129,7 +130,8 @@ def get_rovi_response(path, method, param_list):
     
     url = url + '?' + params
     
-    print url
+    if debug:
+        print url
     
     response_dict = {}
     
