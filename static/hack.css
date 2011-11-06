@@ -109,12 +109,23 @@ img.small:hover {
 	clear:both;
 }
 
-ul {
-    list-style-type: none;
-    padding: 0;
-    margin: 0;
-	font: 1.25em "Helvetica Neue", Arial, Helvetica, Geneva, sans-serif;
+
+ul .tree {
+	padding = 10px;
+	text-align:left;
 }
+
+ul .tree li {
+    text-align: left;
+    padding = 10px;
+
+}
+
+.genretree {
+	width: 600px;
+	text-align: left;
+}
+
 
 ul a {
 	color: red;
@@ -124,6 +135,3 @@ a {
 	color: red;
 }
 
-li {
-    text-align: center;
-}
