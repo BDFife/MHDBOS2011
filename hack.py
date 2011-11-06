@@ -18,7 +18,27 @@ bad_styles = ['MA0000011929', 'MA0000012148']
 banned_styles = set(bad_styles)
 
 
+f = open("topitemmap.json", "r")
+topitems = json.load(f)
+f.close()
 
+f = open("styles.json", "r")
+style_map = json.load(f)
+f.close()
+
+f = open("images.json", "r")
+image_map = json.load(f)
+f.close()
+
+reverse_style_map = {}
+alpha_styles = []
+
+for key, val in style_map.iteritems():
+    if key in topitems:
+        reverse_style_map[val] = key
+        alpha_styles.append(val)
+
+alpha_styles.sort()
 
 @app.route('/')
 def index():
@@ -31,12 +51,21 @@ def index():
     for facet in facets:
         facet_hash[facet["name"]] = facet["id"]
     
-    return render_template('index.html', facet_hash=facet_hash)
+    return render_template('index.html', facet_hash=facet_hash, alpha_styles=alpha_styles, reverse_style_map=reverse_style_map)
 
 @app.route('/show/albumfromgenre/<genreid>')
-def album_from_style(genreid):
+def album_from_genre(genreid):
     params = []
     params.append(('filter', "genreid:" + genreid))
+    params.append(('size', 1))
+    results = get_filterbrowse_christmas(params)
+    albumid = results[0]["id"]
+    return show_album(albumid)
+
+@app.route('/show/albumfromstyle/<genreid>')
+def album_from_style(genreid):
+    params = []
+    params.append(('filter', "subgenreid:" + genreid))
     params.append(('size', 1))
     results = get_filterbrowse_christmas(params)
     albumid = results[0]["id"]
@@ -69,13 +98,13 @@ def show_album(albumid):
         album["primaryReview"]["text"] = strip_rlinks.sub('', album["primaryReview"]["text"])
 
     styles = album["styles"] 
-    moods = album["moods"] 
-    themes = album["themes"] 
+    #moods = album["moods"] 
+    #themes = album["themes"] 
     
     image_url = get_best_image(album)
 
     style_hash = {}
-    mood_hash = {}
+    #mood_hash = {}
     #theme_hash = {}
     image_hash = {}
 
@@ -86,12 +115,12 @@ def show_album(albumid):
     #    results = get_filterbrowse_christmas(params)
     #    theme_hash[theme["id"]] = results
 
-    for mood in moods:
-        params = []
-        params.append(('filter', "moodid:" + mood["id"]))
-        params.append(('include', "images"))
-        results = get_filterbrowse_christmas(params)
-        mood_hash[mood["id"]] = results
+    #for mood in moods:
+    #    params = []
+    #    params.append(('filter', "moodid:" + mood["id"]))
+    #    params.append(('include', "images"))
+    #   results = get_filterbrowse_christmas(params)
+    #    mood_hash[mood["id"]] = results
 
     for style in styles:
         if style["id"] in banned_styles:
@@ -102,8 +131,8 @@ def show_album(albumid):
         results = get_filterbrowse_christmas(params)
         style_hash[style["id"]] = results
 
-    return render_template('album.html', album=album, hello="hello world", image_hash=image_hash,
-                           image_url=image_url, style_hash=style_hash, mood_hash=mood_hash)
+    return render_template('album.html', album=album, hello="hello world", image_map=image_map,
+                           image_url=image_url, style_hash=style_hash)
 
 
 @app.route('/autocomplete/<query>')
