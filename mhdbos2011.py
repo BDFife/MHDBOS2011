@@ -89,14 +89,12 @@ for genre in genre_tree_full:
                 if style["id"] in topitemsunicode:
                     # Add style to list of pruned styles
                     styles_pruned.append(style)
-                    print "Appended style: " + style["name"]
                     
         # If any styles overlap, map it to a special place
         if len(styles_pruned) > 0:
             subgenre["styles_pruned"] = styles_pruned
         
         # Add subgenre to lists of pruned subgenres
-        print "Appended subgenre: " + subgenre["name"]
         subgenres_pruned.append(subgenre)
     
     # If any subgenres overlap, map it to a special place
@@ -104,11 +102,7 @@ for genre in genre_tree_full:
         genre["subgenres_pruned"] = subgenres_pruned
        
 
-        
     genre_tree_pruned.append(genre)
-
-
-print genre_tree_pruned
 
 
 
