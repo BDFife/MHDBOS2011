@@ -19,7 +19,9 @@
 	<div class="style_title">{{style}}</div>
 	<ul>
 	{% for albumid in responselist %}
+        {% if image_map[albumid] %}
 		<li><a href='/show/album/{{albumid}}'><img src='{{image_map[albumid]}}'></a></li>
+        {% endif %}
 	{% endfor %}
 	</ul>
 	</div>
