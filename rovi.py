@@ -1,7 +1,5 @@
-import urllib, urllib2
+import urllib
 import json
-import hashlib
-import logging
 import time
 from secrets import apikey, sign
 
@@ -13,9 +11,6 @@ MUSICPATH = 'search/v2/music'
 DESCRIPTORPATH = 'data/v1/descriptor'
 
 debug = False
-
-cache = {}
-
 
 def get_artist(id):
     params = []
@@ -139,8 +134,8 @@ def get_rovi_response(path, method, param_list):
     
     response_dict = {}
     
-    if url in cache:
-        response_dict = cache[url]
+    if 0:
+        pass
     else:
         
         count = 0
