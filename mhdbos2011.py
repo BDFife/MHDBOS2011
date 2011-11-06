@@ -4,7 +4,7 @@ from flask import request
 
 
 ## Don't forget to enter your own API keys into the secrets file! 
-from rovi import get_artist, get_artist_by_name, get_autocomplete, get_verbose_album, get_filterbrowse_christmas, get_filterbrowse_christmas_full, get_best_image
+from rovi import get_artist, get_artist_by_name, get_autocomplete, get_verbose_album, get_filterbrowse_christmas, get_filterbrowse_christmas_full, get_best_image, get_genremap
 
 import urllib
 import json
@@ -40,6 +40,14 @@ for key, val in style_map.iteritems():
         alpha_styles.append(val)
 
 alpha_styles.sort()
+
+# Genre tree
+#genre_response = get_genremap()
+#for genre in genre_response["genres"]:
+#    subgenres = genre["subgenres"]
+#    for subgenre in subgenres:
+#        style_hash[subgenre["id"]] = subgenre["name"]
+
 
 @app.route('/')
 def index():
@@ -138,7 +146,7 @@ def show_album(albumid):
             items = topitems[styleid]
             # Make sure no duplicates
             for item in items:
-                type(styleid)
+                type(item)
                 if item in seen:
                     items.remove(item)
                 elif item == thisid:
