@@ -14,7 +14,7 @@
  <br/>
   <ul>
   {% for key, val in facet_hash.iteritems() %}
-		<li><a href="/show/albumfromgenre/{{val}}">{{key}}</a></li>
+		<li><a href="{{url_for('album_from_genre', genreid=val)}}">{{key}}</a></li>
   {% endfor %}  
   </ul>
   
@@ -26,7 +26,7 @@
   	<br/>
   <ul>
  {% for style in alpha_styles %}
-		<li><a href="/show/albumfromstyle/{{reverse_style_map[style]}}">{{style}}</a></li>
+		<li><a href="{{url_for('album_from_style', genreid=reverse_style_map[style])}}">{{style}}</a></li>
   {% endfor %}    	
   </ul>
 </div>	
