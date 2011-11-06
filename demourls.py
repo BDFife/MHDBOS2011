@@ -2,7 +2,7 @@ import urllib
 import json
 import hashlib
 import logging
-from secrets import apikey, sign
+from secrets2 import apikey, sign
 
 # Rovi Secrets
 HOSTNAME = 'api.rovicorp.com'

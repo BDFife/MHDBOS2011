@@ -10,7 +10,7 @@ ALBUMPATH = 'data/v1/album'
 MUSICPATH = 'search/v2/music'
 DESCRIPTORPATH = 'data/v1/descriptor'
 
-debug = False
+debug = True
 
 def get_artist(id):
     params = []
@@ -149,7 +149,8 @@ def get_rovi_response(path, method, param_list):
             f = urllib.urlopen(url)
             http_data = f.read()
             if http_data == "":
-                print "Failed on URL, retrying: " + url
+                if debug:
+                    print "Failed on URL, retrying: " + url
                 time.sleep(60)
                 count += 1
                 continue
@@ -187,9 +188,9 @@ def get_best_image_from_list(images):
 
 def get_genremap():
     params = []
-    params.append(('include', 'subgenres'))
+    params.append(('include', 'all'))
     response = get_rovi_response(DESCRIPTORPATH, 'musicgenres', params)
-    return response
+    return response['genres']
 
 
 def get_stylemap():

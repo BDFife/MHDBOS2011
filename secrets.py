@@ -3,8 +3,8 @@ import hashlib
 
 
 # Rovi Secrets
-APIKEY = 'MY API KEY'
-SECRET = 'MY SECRET'
+APIKEY = '3jedgsyd8f7m6c2r4bqvfkqa'
+SECRET = 'pz5E41N6bR'
 
 def apikey():
     return APIKEY
