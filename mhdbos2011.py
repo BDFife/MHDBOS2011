@@ -34,10 +34,15 @@ f.close()
 reverse_style_map = {}
 alpha_styles = []
 
-for key, val in style_map.iteritems():
-    if key in topitems:
-        reverse_style_map[val] = key
-        alpha_styles.append(val)
+for styleid, stylename in style_map.iteritems():
+    if styleid in topitems:
+        use = False
+        for item in topitems[styleid]:
+            if item in image_map:
+                use = True
+        if use == True:
+            reverse_style_map[stylename] = styleid
+            alpha_styles.append(stylename)
 
 alpha_styles.sort()
 
@@ -132,7 +137,7 @@ def show_album(albumid):
     #   results = get_filterbrowse_christmas(params)
     #    mood_hash[mood["id"]] = results
 
-    seen = []
+    seen = {}
     listsomething = []
     for style in styles:
         if style["id"] in banned_styles:
@@ -144,19 +149,14 @@ def show_album(albumid):
         type(styleid)
         if styleid in topitems:
             items = topitems[styleid]
+            positiveitems = []
             # Make sure no duplicates
             for item in items:
-                type(item)
-                if item in seen:
-                    items.remove(item)
-                elif item == albumid:
-                    items.remove(item)
-                elif item not in image_map:
-                    items.remove(item)
-                else:
-                    seen.append(item)                    
-            if len(items) > 1:
-                style_hash[style["name"]] = items
+                if unicode(item) not in seen and item != albumid and item in image_map:
+                    positiveitems.append(item)
+                    seen[unicode(item)] = 1                    
+            if len(positiveitems) > 1:
+                style_hash[style["name"]] = positiveitems
 
     return render_template('album.html', album=album, hello="hello world", image_map=image_map,
                            image_url=image_url, style_hash=style_hash, tracks=tracks)
@@ -205,7 +205,7 @@ def show_name(name):
     return render_template('name.html', name=name)
 
 if __name__ == '__main__':
-    #app.debug = True
+    app.debug = True
     app.run()
 #    app.logger.debug('The logger is running, hooray!')
     
