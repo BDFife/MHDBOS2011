@@ -1,16 +1,14 @@
 
 from rovi import get_filterbrowse_christmas, get_filterbrowse_christmas_pages
 import json
-
+import time
 
 def generate_cache():
     # dragons - this function is untested. 
 
-    cache = {}
-
     # determine the total size of the result and calculate # pages
     # (max response size is 100)
-    page_size = 50
+    page_size = 10
     result_size = get_filterbrowse_christmas_pages()
     num_pages = result_size / page_size
 
@@ -25,10 +23,11 @@ def generate_cache():
     #num_pages = 2
 
     for page in range(num_pages):
+        cache = {}
 
         params = []
         params.append(('size', str(page_size)))
-        params.append(('include', 'styles,moods'))
+        #params.append(('include', 'styles,moods'))
         params.append(('offset', str(page*100)))
 
         result = get_filterbrowse_christmas(params)
@@ -50,6 +49,8 @@ def generate_cache():
         f = open("song_dump.json", "w")
         json.dump(cache, f, indent=4)
         f.close()
+
+        time.sleep(10)
 
 generate_cache()
 
