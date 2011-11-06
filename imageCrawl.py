@@ -19,12 +19,11 @@ def runstuff():
         #print image
         if (image != None):
             image_cache[id] = image
-        if count % 100 == 0:
-            print "Dumping after another 100 %s" % time.ctime()
+        if count % 500 == 0:
+            print "Dumping after another 500 %s" % time.ctime()
             f = open("images.json", "w")
             json.dump(image_cache, f, indent=4)
             f.close()
-        if count % 1000 == 0:
-            return
+ 
         
 runstuff()
