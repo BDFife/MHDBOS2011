@@ -1,12 +1,16 @@
 <html>
 <head>
-  <title>Christmas Hack</title>
+  <title>Christmas Music Hack</title>
   <link rel="stylesheet" href="/static/hack.css" type="text/css">
 </head>
 <body>
 
-<h1>Welcome!</h1>
-<p>Pick a genre</p>
+<h1>Christmas Music</h1>
+
+<p>Explore the Christmas music available from the Rovi database.</p>
+
+<p>To start, please select the music Genere you'd like to explore</p>
+
 {% for key, val in facet_hash.iteritems() %}
 		<li><a href="/show/albumfromgenre/{{val}}">{{key}}</a></li>
 {% endfor %}
