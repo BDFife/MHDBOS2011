@@ -1,4 +1,4 @@
-import urllib
+import urllib, urllib2
 import json
 import hashlib
 import logging
@@ -10,6 +10,8 @@ HOSTNAME = 'api.rovicorp.com'
 NAMEPATH = 'data/v1/name'
 ALBUMPATH = 'data/v1/album'
 MUSICPATH = 'search/v2/music'
+DESCRIPTORPATH = 'data/v1/descriptor'
+
 
 cache = {}
 
@@ -137,7 +139,7 @@ def get_rovi_response(path, method, param_list):
         
         retry = True        
         while (retry):
-            f = urllib.urlopen(url)
+            f = urllib2.urlopen(url)
             http_data = f.read()
             if http_data == "":
                 print "Failed on URL, retrying: " + url
@@ -171,3 +173,16 @@ def get_best_image_from_list(images):
             image_url = image["url"]
             return image_url
     return image_url
+
+
+def get_genremap():
+    params = []
+    params.append(('include', 'subgenres'))
+    response = get_rovi_response(DESCRIPTORPATH, 'musicgenres', params)
+    return response
+
+
+def get_stylemap():
+    params = []
+    response = get_rovi_response(DESCRIPTORPATH, 'styles', params)
+    return response["styles"]
