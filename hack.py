@@ -91,6 +91,7 @@ def show_album(albumid):
     thisid = album["ids"]["albumId"]
     # yank rovilinks from the description
     if album["primaryReview"] is None:
+        album["primaryReview"] = {}
         album["primaryReview"]["text"] = "Sorry, no review available for this album."
     else:
         # just in case no bio, and it is "None"
