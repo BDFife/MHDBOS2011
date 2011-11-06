@@ -10,7 +10,7 @@ ALBUMPATH = 'data/v1/album'
 MUSICPATH = 'search/v2/music'
 DESCRIPTORPATH = 'data/v1/descriptor'
 
-debug = True
+debug = False
 
 def get_artist(id):
     params = []
@@ -75,7 +75,7 @@ def get_filterbrowse_christmas(params):
         results = response["searchResponse"]["results"]
     except:
         if debug == True:
-            #print response
+            print response
             pass
     return results
 
@@ -88,7 +88,8 @@ def get_filterbrowse_christmas_pages():
     try:
         results = response["searchResponse"]["totalResultCounts"]
     except:
-        #print response
+        if debug == True:
+            print response
         pass
         
     return results
@@ -134,7 +135,7 @@ def get_rovi_response(path, method, param_list):
     url = url + '?' + params
     
     if debug:
-        #print url
+        print url
         pass
     
     response_dict = {}
@@ -148,7 +149,7 @@ def get_rovi_response(path, method, param_list):
             f = urllib.urlopen(url)
             http_data = f.read()
             if http_data == "":
-                #print "Failed on URL, retrying: " + url
+                print "Failed on URL, retrying: " + url
                 time.sleep(60)
                 count += 1
                 continue
@@ -163,14 +164,16 @@ def hostname():
     return HOSTNAME
 
 def get_best_image(album):
-    images = album["images"]["front"]
     image_url = ""
-    for image in images:
-#        if image_url == "":
-#            image_url = image["url"]
-        if image["formatid"] == 63:
-            image_url = image["url"]
-            return image_url
+  
+    if "images" in album and album["images"] != None:
+        images = album["images"]["front"]
+        for image in images:
+#            if image_url == "":
+#                image_url = image["url"]
+            if image["formatid"] == 63:
+                image_url = image["url"]
+                return image_url
     return image_url
 
 def get_best_image_from_list(images):
