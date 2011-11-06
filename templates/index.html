@@ -12,6 +12,7 @@
   	
   	
  <br/>
+ <!--
   <ul>
   {% for key, val in facet_hash.iteritems() %}
 		<li><a href="/show/albumfromgenre/{{val}}">{{key}}</a></li>
@@ -29,6 +30,36 @@
 		<li><a href="/show/albumfromstyle/{{reverse_style_map[style]}}">{{style}}</a></li>
   {% endfor %}    	
   </ul>
+ -->
+<div class='genretree'>
+
+  	<ul class='tree'>
+  		{% for genre in genre_tree %}
+  		<li style="font-size: 24"><a href="/show/albumfromgenre/{{genre['id']}}">{{genre["name"]}}</a>
+  			{% if "subgenres_pruned" in genre %}
+  				<ul class='tree'>
+  					  {% for subgenre in genre["subgenres_pruned"] %}
+						<li style="font-size: 20"><a href="/show/albumfromstyle/{{subgenre['id']}}">{{subgenre['name']}}</a>
+							  {% if "styles_pruned" in subgenre %}
+								<ul class='tree'>
+									 {% for style in subgenre["styles_pruned"] %}
+									 	<li style="font-size: 18"><a href="/show/albumfromstyle/{{style['id']}}">{{style['name']}}</a>
+									 {% endfor %} 
+								</ul>
+							  {% endif %}
+						</li>
+  						{% endfor %} 
+  				</ul>
+  			{% endif %}
+  		</li>
+  		{% endfor %}  	
+  	</ul>
+  	</div>
+  	
+  	<br/>
+  	<br/>
+  	<br/>
+  
 </div>	
 </center>
 </body>

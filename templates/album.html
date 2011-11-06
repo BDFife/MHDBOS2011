@@ -32,13 +32,12 @@
 {% for style, responselist in style_hash.iteritems() %}
 	<div class="column">
 	<div class="style_title">{{style}}</div>
-	<ul>
 	{% for albumid in responselist %}
         {% if image_map[albumid] %}
-		<li><a href='/show/album/{{albumid}}'><img src='{{image_map[albumid]}}' class='small'></a></li>
+		<a href='/show/album/{{albumid}}'><img src='{{image_map[albumid]}}' class='small'></a>
         {% endif %}
 	{% endfor %}
-	</ul>
+	
 	</div>
 {% endfor %}
 
